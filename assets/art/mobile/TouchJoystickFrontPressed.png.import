@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bat2rjfwbmg4h"
-path="res://.godot/imported/MoveUp.png-fc37a68262fb899e6e610e56757e3519.ctex"
+uid="uid://dxgpv0rewpd7r"
+path="res://.godot/imported/TouchJoystickFrontPressed.png-613391a4ad78c7f998e4bc7d3d56fba5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/mobile/MoveUp.png"
-dest_files=["res://.godot/imported/MoveUp.png-fc37a68262fb899e6e610e56757e3519.ctex"]
+source_file="res://assets/art/mobile/TouchJoystickFrontPressed.png"
+dest_files=["res://.godot/imported/TouchJoystickFrontPressed.png-613391a4ad78c7f998e4bc7d3d56fba5.ctex"]
 
 [params]
 

@@ -35,3 +35,30 @@ signal end_game(score)
 
 @warning_ignore("unused_signal")
 signal player_dead()
+
+@warning_ignore("unused_signal")
+signal joystickMoved(direction)
+
+@warning_ignore("unused_signal")
+signal joystickReleased()
+
+@warning_ignore("unused_signal")
+signal touchRoll(direction)
+
+@warning_ignore("unused_signal")
+signal speedUp
+
+@warning_ignore("unused_signal")
+signal speedDown
+
+@warning_ignore("unused_signal")
+signal touchFire
+
+@warning_ignore("unused_signal")
+signal touchBomb
+
+@warning_ignore("unused_signal")
+signal removeBomb
+
+@warning_ignore("unused_signal")
+signal togglePause()

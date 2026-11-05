@@ -31,6 +31,15 @@ func _ready():
 	
 	dialogueText.visible_ratio = 0.0
 	
+	if not Global.check_not_mobile():
+		print("yeah")
+		$TouchJoystick.queue_free()
+		$TouchRoll.queue_free()
+		$TouchSpeed.queue_free()
+		$TouchShoot.queue_free()
+	else:
+		print("nah")
+	
 func _physics_process(_delta):
 	update_speed()
 	

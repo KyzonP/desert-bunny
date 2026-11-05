@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5oinxrx5p03p"
-path="res://.godot/imported/MoveDown.png-479310e06b8cadf1b64c5362d1242359.ctex"
+uid="uid://d1n13ksnxfguo"
+path="res://.godot/imported/ButtonLeftPressed.png-0c0fc959dcc840bc2386334fb6346c2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/mobile/MoveDown.png"
-dest_files=["res://.godot/imported/MoveDown.png-479310e06b8cadf1b64c5362d1242359.ctex"]
+source_file="res://assets/art/mobile/ButtonLeftPressed.png"
+dest_files=["res://.godot/imported/ButtonLeftPressed.png-0c0fc959dcc840bc2386334fb6346c2b.ctex"]
 
 [params]
 

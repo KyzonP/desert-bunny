@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cvj2s4n35u6oj" path="res://assets/art/ui/MainMenuViewport.png" id="4_qgo02"]
 [ext_resource type="Texture2D" uid="uid://b732rv03p0vac" path="res://assets/art/ui/MainMenuKeys.png" id="6_isoef"]
 [ext_resource type="FontFile" uid="uid://bti7l0s1loqws" path="res://fonts/PrStart.ttf" id="6_xn6kt"]
+[ext_resource type="Texture2D" uid="uid://bdwhdgd4khwt5" path="res://assets/art/ui/MainMenuMobile.png" id="8_p1nwe"]
 [ext_resource type="Texture2D" uid="uid://djoaxtidqb1oa" path="res://assets/art/ui/MainMenuBackground.png" id="9_vovv2"]
 [ext_resource type="Texture2D" uid="uid://otau7hetkov" path="res://assets/art/ui/Button.png" id="10_d4hu8"]
 [ext_resource type="Texture2D" uid="uid://smbb8cqrrgbq" path="res://assets/art/ui/ButtonPressed.png" id="11_p1nwe"]
@@ -66,7 +67,93 @@ directional_shadow_max_distance = 1000.0
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=750180555]
 
+[node name="Mobile" type="Sprite2D" parent="UI" unique_id=1823675174]
+visible = false
+texture_filter = 1
+position = Vector2(1127, 83)
+texture = ExtResource("8_p1nwe")
+
+[node name="Directions" type="Control" parent="UI/Mobile" unique_id=1195482215]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -536.0
+offset_bottom = -284.0
+
+[node name="Roll" type="RichTextLabel" parent="UI/Mobile/Directions" unique_id=1467062570]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 397.0
+offset_right = 207.0
+offset_bottom = 427.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_xn6kt")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]ROLL"
+
+[node name="Bomb" type="RichTextLabel" parent="UI/Mobile/Directions" unique_id=144963475]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 395.0
+offset_right = 508.0
+offset_bottom = 425.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_xn6kt")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]BOMB"
+
+[node name="Move" type="RichTextLabel" parent="UI/Mobile/Directions" unique_id=1243680665]
+layout_mode = 0
+offset_left = -53.0
+offset_top = 544.0
+offset_right = 63.0
+offset_bottom = 574.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_xn6kt")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]MOVE"
+
+[node name="Shoot" type="RichTextLabel" parent="UI/Mobile/Directions" unique_id=741482227]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 469.0
+offset_right = 534.0
+offset_bottom = 499.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_xn6kt")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]SHOOT"
+
+[node name="Speed" type="RichTextLabel" parent="UI/Mobile/Directions" unique_id=984480707]
+layout_mode = 0
+offset_left = 394.0
+offset_top = 532.0
+offset_right = 553.0
+offset_bottom = 586.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("6_xn6kt")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]ADJUST
+SPEED"
+
 [node name="Keys" type="Sprite2D" parent="UI" unique_id=1148583120]
+visible = false
 texture_filter = 1
 position = Vector2(1110, 83)
 texture = ExtResource("6_isoef")

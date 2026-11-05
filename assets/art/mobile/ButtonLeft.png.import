@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmi5jfbusnr14"
-path="res://.godot/imported/MoveBorder.png-66360c51b3b6de3d36d9777427a566c5.ctex"
+uid="uid://j67d633l858n"
+path="res://.godot/imported/ButtonLeft.png-b7e9899958fcf3bca7098c39aa9ea680.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/mobile/MoveBorder.png"
-dest_files=["res://.godot/imported/MoveBorder.png-66360c51b3b6de3d36d9777427a566c5.ctex"]
+source_file="res://assets/art/mobile/ButtonLeft.png"
+dest_files=["res://.godot/imported/ButtonLeft.png-b7e9899958fcf3bca7098c39aa9ea680.ctex"]
 
 [params]
 

@@ -25,3 +25,4 @@ current = true
 
 [node name="Player" parent="PathFollow3D/Camera3D" unique_id=707890230 instance=ExtResource("2_gpfry")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+joystick_margin = 10.0

@@ -7,11 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://dkxmi0tvk634n" path="res://assets/art/ui/BunnyPortrait.png" id="3_yev5y"]
 [ext_resource type="Texture2D" uid="uid://dnddgg6vcaygy" path="res://assets/art/ui/VolleySize.png" id="6_8dubc"]
 [ext_resource type="Texture2D" uid="uid://txfjh3snois3" path="res://assets/art/ui/BombSprite.png" id="7_p7vwb"]
-[ext_resource type="Texture2D" uid="uid://cmi5jfbusnr14" path="res://assets/art/mobile/MoveBorder.png" id="8_ktti3"]
-[ext_resource type="Texture2D" uid="uid://bat2rjfwbmg4h" path="res://assets/art/mobile/MoveUp.png" id="9_cgfq5"]
-[ext_resource type="Texture2D" uid="uid://b6ptcogg1p0es" path="res://assets/art/mobile/MoveLeft.png" id="10_7dvkv"]
-[ext_resource type="Texture2D" uid="uid://chqw1kthcfoli" path="res://assets/art/mobile/MoveRight.png" id="11_vdcm2"]
-[ext_resource type="Texture2D" uid="uid://c5oinxrx5p03p" path="res://assets/art/mobile/MoveDown.png" id="12_6rmj2"]
+[ext_resource type="Script" uid="uid://srggvfdtuagg" path="res://scripts/touch_joystick.gd" id="8_7dvkv"]
+[ext_resource type="Texture2D" uid="uid://bpq4xb6sa3tvi" path="res://assets/art/mobile/TouchJoystickBack.png" id="8_ktti3"]
+[ext_resource type="Texture2D" uid="uid://dbclk4rosumgp" path="res://assets/art/mobile/TouchJoystickFront.png" id="9_cgfq5"]
+[ext_resource type="Texture2D" uid="uid://j67d633l858n" path="res://assets/art/mobile/ButtonLeft.png" id="11_6rmj2"]
+[ext_resource type="Texture2D" uid="uid://dxgpv0rewpd7r" path="res://assets/art/mobile/TouchJoystickFrontPressed.png" id="11_f7tlh"]
+[ext_resource type="Script" uid="uid://b2v6i43p33fym" path="res://scripts/touch_roll.gd" id="11_vsj0x"]
+[ext_resource type="Texture2D" uid="uid://dr2ggq7gnb27q" path="res://assets/art/mobile/ButtonRight.png" id="12_vsj0x"]
+[ext_resource type="Script" uid="uid://cmow1db1ptryj" path="res://scripts/touch_speed.gd" id="14_qsv74"]
+[ext_resource type="Texture2D" uid="uid://d1n13ksnxfguo" path="res://assets/art/mobile/ButtonLeftPressed.png" id="15_cof4p"]
+[ext_resource type="Texture2D" uid="uid://cpmey7v1m8g2r" path="res://assets/art/mobile/ButtonRightPressed.png" id="16_f7tlh"]
+[ext_resource type="Script" uid="uid://jxpk21hv66cd" path="res://scripts/touch_shoot.gd" id="18_8k7j3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gdt2y"]
 animations = [{
@@ -206,36 +212,123 @@ texture = ExtResource("7_p7vwb")
 region_enabled = true
 region_rect = Rect2(0, 0, 24, 8)
 
-[node name="Move" type="Sprite2D" parent="." unique_id=33421379]
+[node name="TouchJoystick" type="Node2D" parent="." unique_id=1303630320]
+position = Vector2(91, 495)
+script = ExtResource("8_7dvkv")
+
+[node name="JoystickBase" type="Sprite2D" parent="TouchJoystick" unique_id=543217214]
 texture_filter = 1
-position = Vector2(156, 518)
+position = Vector2(60, 60)
 texture = ExtResource("8_ktti3")
 
-[node name="Up" type="TextureButton" parent="Move" unique_id=408121279]
+[node name="TouchScreenButton" type="TouchScreenButton" parent="TouchJoystick" unique_id=1840305127]
 texture_filter = 1
-offset_left = -76.0
-offset_top = -76.0
-offset_right = 76.0
-offset_bottom = 76.0
 texture_normal = ExtResource("9_cgfq5")
+texture_pressed = ExtResource("11_f7tlh")
 
-[node name="Left" type="TextureButton" parent="Move" unique_id=539449891]
-offset_left = -76.0
-offset_top = -76.0
-offset_right = 76.0
-offset_bottom = 76.0
-texture_normal = ExtResource("10_7dvkv")
+[node name="Text" type="RichTextLabel" parent="TouchJoystick" unique_id=1187935286]
+offset_left = -3.0
+offset_top = -25.0
+offset_right = 125.0
+offset_bottom = -7.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_nt7q6")
+bbcode_enabled = true
+text = "[center]MOVE"
 
-[node name="Right" type="TextureButton" parent="Move" unique_id=1915686324]
-offset_left = -76.0
-offset_top = -76.0
-offset_right = 76.0
-offset_bottom = 76.0
-texture_normal = ExtResource("11_vdcm2")
+[node name="TouchRoll" type="Node2D" parent="." unique_id=1294933017]
+position = Vector2(72, 355)
+script = ExtResource("11_vsj0x")
 
-[node name="Down" type="TextureButton" parent="Move" unique_id=1783617076]
-offset_left = -76.0
-offset_top = -76.0
-offset_right = 76.0
-offset_bottom = 76.0
-texture_normal = ExtResource("12_6rmj2")
+[node name="RollLeft" type="TouchScreenButton" parent="TouchRoll" unique_id=74927442]
+texture_filter = 1
+position = Vector2(-32, 65)
+texture_normal = ExtResource("11_6rmj2")
+texture_pressed = ExtResource("15_cof4p")
+
+[node name="RollRight" type="TouchScreenButton" parent="TouchRoll" unique_id=1325583371]
+texture_filter = 1
+position = Vector2(112, 65)
+texture_normal = ExtResource("12_vsj0x")
+texture_pressed = ExtResource("16_f7tlh")
+
+[node name="Text" type="RichTextLabel" parent="TouchRoll" unique_id=1463476386]
+offset_left = -32.0
+offset_top = 80.0
+offset_right = 192.0
+offset_bottom = 98.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_nt7q6")
+bbcode_enabled = true
+text = "[center]ROLL"
+
+[node name="TouchSpeed" type="Node2D" parent="." unique_id=1434782726]
+position = Vector2(846, 472)
+script = ExtResource("14_qsv74")
+
+[node name="SpeedDown" type="TouchScreenButton" parent="TouchSpeed" unique_id=489900811]
+texture_filter = 1
+position = Vector2(0, 52)
+texture_normal = ExtResource("11_6rmj2")
+texture_pressed = ExtResource("15_cof4p")
+
+[node name="SpeedUp" type="TouchScreenButton" parent="TouchSpeed" unique_id=126924813]
+texture_filter = 1
+position = Vector2(79, 52)
+texture_normal = ExtResource("12_vsj0x")
+texture_pressed = ExtResource("16_f7tlh")
+
+[node name="Text" type="RichTextLabel" parent="TouchSpeed" unique_id=585401621]
+offset_left = 3.0
+offset_top = 38.0
+offset_right = 156.0
+offset_bottom = 56.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_nt7q6")
+bbcode_enabled = true
+text = "[center]SPEED"
+
+[node name="TouchShoot" type="Node2D" parent="." unique_id=1933272013]
+position = Vector2(1032, 299)
+script = ExtResource("18_8k7j3")
+
+[node name="BombText" type="RichTextLabel" parent="TouchShoot" unique_id=1330647729]
+offset_left = -3.0
+offset_top = -8.0
+offset_right = 125.0
+offset_bottom = 10.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_nt7q6")
+bbcode_enabled = true
+text = "[center]BOMB"
+
+[node name="TouchFire" type="TouchScreenButton" parent="TouchShoot" unique_id=367345247]
+texture_filter = 1
+position = Vector2(0, 109)
+texture_normal = ExtResource("9_cgfq5")
+texture_pressed = ExtResource("11_f7tlh")
+
+[node name="TouchBomb" type="TouchScreenButton" parent="TouchShoot" unique_id=270645695]
+texture_filter = 1
+texture_normal = ExtResource("9_cgfq5")
+texture_pressed = ExtResource("11_f7tlh")
+
+[node name="FireText" type="RichTextLabel" parent="TouchShoot" unique_id=2026291933]
+offset_left = -3.0
+offset_top = 108.0
+offset_right = 125.0
+offset_bottom = 126.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_nt7q6")
+bbcode_enabled = true
+text = "[center]FIRE"

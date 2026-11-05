@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chqw1kthcfoli"
-path="res://.godot/imported/MoveRight.png-fad51f75443ad0141ab8f5c41277fe70.ctex"
+uid="uid://bdwhdgd4khwt5"
+path="res://.godot/imported/MainMenuMobile.png-9922aef62c194482ace30a79ed5e64c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/mobile/MoveRight.png"
-dest_files=["res://.godot/imported/MoveRight.png-fad51f75443ad0141ab8f5c41277fe70.ctex"]
+source_file="res://assets/art/ui/MainMenuMobile.png"
+dest_files=["res://.godot/imported/MainMenuMobile.png-9922aef62c194482ace30a79ed5e64c0.ctex"]
 
 [params]
 

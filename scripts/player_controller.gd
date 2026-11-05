@@ -24,6 +24,10 @@ var speed
 @export var x_margin : float = 13.0
 ## Maximum y-axis movement
 @export var y_margin : float = 7.0
+## Mobile controls
+var mobile_x_direction : float = 0.0
+var mobile_y_direction : float = 0.0
+@export var joystick_margin : float = 5.0
 
 # Hurt buffer
 ## Time between injuries
@@ -65,22 +69,29 @@ func _ready():
 	area_entered.connect(_collide)
 	EventBus.powerup_activated.connect(_increase_volley_size)
 	EventBus.player_dead.connect(die)
+	EventBus.joystickMoved.connect(joystickMovement)
+	EventBus.joystickReleased.connect(joystickReleased)
+	EventBus.touchRoll.connect(roll)
+	EventBus.touchFire.connect(fireBullet)
+	EventBus.touchBomb.connect(trigger_bomb)
 
 func _input(_event):
-	if not rolling:
-		if Input.is_action_just_pressed("roll_left"):
-			_roll("Left")
-			
-		if Input.is_action_just_pressed("roll_right"):
-			_roll("Right")
+	if Input.is_action_just_pressed("roll_left"):
+		roll("Left")
+		
+	if Input.is_action_just_pressed("roll_right"):
+		roll("Right")
 			
 	if Input.is_action_just_pressed("bomb"):
-		_trigger_bomb()
+		trigger_bomb()
 		
-func _trigger_bomb() -> void:
+func trigger_bomb() -> void:
 	if bomb_current > 0:
 		bomb_current -= 1
 		EventBus.bomb_activated.emit(global_position, bomb_radius)
+		
+		if bomb_current == 0:
+			EventBus.removeBomb.emit()
 
 func _physics_process(delta) -> void:
 	move(delta)
@@ -90,9 +101,8 @@ func _physics_process(delta) -> void:
 		hurtBufferTimer += delta
 		
 	# bullet cooldown
-	if not rolling:
-		if Input.is_action_pressed("fire"):
-			fireBullet()
+	if Input.is_action_pressed("fire"):
+		fireBullet()
 	
 	if bulletVolley >= bulletVolleyMax:
 		bulletTimer += delta
@@ -103,16 +113,24 @@ func _physics_process(delta) -> void:
 	if camera:
 		lock_to_camera()
 		
+func joystickMovement(direction):
+	mobile_x_direction = direction[0]
+	mobile_y_direction = direction[1]
+
+func joystickReleased():
+	mobile_x_direction = 0.0
+	mobile_y_direction = 0.0
+		
 func move(delta) -> void:
 	# Get input direction
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
-	if input_dir[0] < 0:
+	if input_dir[0] < 0 or mobile_x_direction < -joystick_margin:
 		x_speed = move_toward(x_speed, -max_speed, delta * acceleration)
 		rotation.y = move_toward(rotation.y, maxRotation, delta * rotateAcceleration)
 		camera.rotation.y = move_toward(camera.rotation.y, maxCameraRotation, delta * cameraRotateAcceleration)
 		
-	elif input_dir[0] > 0:
+	elif input_dir[0] > 0 or mobile_x_direction > joystick_margin:
 		x_speed = move_toward(x_speed, max_speed, delta * acceleration)
 		rotation.y = move_toward(rotation.y, -maxRotation, delta * rotateAcceleration)
 		camera.rotation.y = move_toward(camera.rotation.y, -maxCameraRotation, delta * cameraRotateAcceleration)
@@ -121,11 +139,11 @@ func move(delta) -> void:
 		rotation.y = move_toward(rotation.y, 0, delta * rotateDeceleration)
 		camera.rotation.y = move_toward(camera.rotation.y, 0, delta * cameraRotateAcceleration)
 		
-	if input_dir[1] < 0:
+	if input_dir[1] < 0 or mobile_y_direction < -joystick_margin:
 		y_speed = move_toward(y_speed, max_speed, delta * acceleration)
 		rotation.x = move_toward(rotation.x, maxRotation, delta * rotateAcceleration)
 		camera.rotation.x = move_toward(camera.rotation.x, maxCameraRotation, delta * cameraRotateAcceleration)
-	elif input_dir[1] > 0:
+	elif input_dir[1] > 0 or mobile_y_direction > joystick_margin:
 		y_speed = move_toward(y_speed, -max_speed, delta * acceleration)
 		rotation.x = move_toward(rotation.x, -maxRotation, delta * rotateAcceleration)
 		camera.rotation.x = move_toward(camera.rotation.x, -maxCameraRotation, delta * cameraRotateAcceleration)
@@ -148,44 +166,46 @@ func lock_to_camera() -> void:
 		position.y = -y_margin
 		
 func fireBullet() -> void:
-	if bulletVolley < bulletVolleyMax:
-		bulletVolley += 1
-		var bullet = bulletObject.instantiate()
-		get_tree().root.get_child(3).add_child(bullet)
-		bullet.global_position = $FirePoint.global_position
-		bullet.rotation = global_rotation
-		bullet.playerBullet()
+	if not rolling:
+		if bulletVolley < bulletVolleyMax:
+			bulletVolley += 1
+			var bullet = bulletObject.instantiate()
+			get_tree().root.get_child(3).add_child(bullet)
+			bullet.global_position = $FirePoint.global_position
+			bullet.rotation = global_rotation
+			bullet.playerBullet()
 	
-func _roll(direction : String) -> void:
-	# disable shooting/rolling and collider
-	rolling = true
-	collider.disabled = true
-	
-	var targetX : float = 0.0
-	var targetRotation = TAU
-	# calculate destinations
-	# moving x on pos, z on rotate (z increase as x decreases for left)
-	if direction == "Left":
-		targetX = position.x - rollDistance
-		if targetX < -x_margin:
-			targetX = -x_margin
-	elif direction == "Right":
-		targetX = position.x + rollDistance
-		if targetX > x_margin:
-			targetX = x_margin
-		targetRotation *= -1
-	
-	if rollTweenMove:
-		rollTweenMove.kill()
-	rollTweenMove = create_tween()
-	rollTweenMove.tween_property(self, "position", Vector3(targetX, position.y, position.z), rollTime)
-	
-	if rollTweenRotate:
-		rollTweenRotate.kill()
-	rollTweenRotate = create_tween()
-	rollTweenRotate.tween_property(self, "rotation:z", targetRotation, rollTime).as_relative()
-	
-	rollTweenRotate.finished.connect(_end_roll)
+func roll(direction : String) -> void:
+	if not rolling:
+		# disable shooting/rolling and collider
+		rolling = true
+		collider.disabled = true
+		
+		var targetX : float = 0.0
+		var targetRotation = TAU
+		# calculate destinations
+		# moving x on pos, z on rotate (z increase as x decreases for left)
+		if direction == "Left":
+			targetX = position.x - rollDistance
+			if targetX < -x_margin:
+				targetX = -x_margin
+		elif direction == "Right":
+			targetX = position.x + rollDistance
+			if targetX > x_margin:
+				targetX = x_margin
+			targetRotation *= -1
+		
+		if rollTweenMove:
+			rollTweenMove.kill()
+		rollTweenMove = create_tween()
+		rollTweenMove.tween_property(self, "position", Vector3(targetX, position.y, position.z), rollTime)
+		
+		if rollTweenRotate:
+			rollTweenRotate.kill()
+		rollTweenRotate = create_tween()
+		rollTweenRotate.tween_property(self, "rotation:z", targetRotation, rollTime).as_relative()
+		
+		rollTweenRotate.finished.connect(_end_roll)
 		
 func _end_roll() -> void:
 	rolling = false

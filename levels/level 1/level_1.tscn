@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bh3ik5ri51i6a" path="res://levels/level 1/region_4.tscn" id="9_slf20"]
 [ext_resource type="PackedScene" uid="uid://ckpeh5ciqj6y5" path="res://levels/level 1/region_5.tscn" id="10_wnnao"]
 [ext_resource type="PackedScene" uid="uid://1scs4mgpljpy" path="res://scenes/dialogue_trigger.tscn" id="11_b1bl5"]
+[ext_resource type="PackedScene" uid="uid://qbmrbkbrgcxb" path="res://scenes/menu/pause_menu.tscn" id="12_7e5ji"]
 
 [sub_resource type="Curve3D" id="Curve3D_5pt6r"]
 _data = {
@@ -140,5 +141,7 @@ dialogue = "YEAH NO PRESSURE!"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4589.028, 79.83327, 0)
 character = "Bunny"
 dialogue = "Really feeling the lack of pressure over here"
+
+[node name="PauseMenu" parent="." unique_id=502209802 instance=ExtResource("12_7e5ji")]
 
 [editable path="Path3D"]

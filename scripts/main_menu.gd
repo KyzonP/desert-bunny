@@ -10,6 +10,11 @@ func _ready():
 	
 	if is_instance_valid(startButton):
 		startButton.pressed.connect(_start)
+		
+	if not Global.check_not_mobile():
+		$UI/Keys.visible = true
+	else:
+		$UI/Mobile.visible = true
 
 func _start():
 	get_tree().change_scene_to_file("res://levels/level 1/level_1.tscn")
