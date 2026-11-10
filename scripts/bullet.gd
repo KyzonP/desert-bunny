@@ -4,6 +4,9 @@ extends Area3D
 @export var damage : int = 1
 @onready var explosion = $Explosion
 
+# Audio
+var impactSound = preload("res://assets/audio/sfx/BulletImpact.wav")
+
 func _ready():
 	area_entered.connect(collide)	
 	
@@ -27,6 +30,9 @@ func _physics_process(_delta):
 		destroy()
 
 func destroy():
+	# Audio
+	AudioManager.play_sfx(impactSound)
+	
 	explosion.reparent(self.get_parent())
 	explosion.explode()
 	

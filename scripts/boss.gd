@@ -58,6 +58,9 @@ var rightPath = load("res://flight_paths/boss_right.tres")
 @export var enemyTimerMax : float = 2.0
 var enemyTimer : float = 0.0
 
+# Audio
+var bossSound = preload("res://assets/audio/sfx/Boss.wav")
+
 func _ready():
 	EventBus.bomb_activated.connect(_bomb)
 	
@@ -110,6 +113,9 @@ func _sync_fire_points():
 		r_fire_point.global_rotation = r_targeting.global_rotation
 			
 func start():
+	# Audio
+	AudioManager.play_sfx(bossSound)
+	
 	state = States.FIRING
 		
 func fire_to_spawn():
@@ -173,7 +179,7 @@ func spawn_to_fire():
 	
 func _shoot(fire_point):
 	var bullet = bulletObject.instantiate()
-	get_tree().root.get_child(3).add_child(bullet)
+	get_tree().root.get_child(4).add_child(bullet)
 	bullet.global_position = fire_point.global_position
 	
 	bullet.rotation = fire_point.global_rotation
@@ -239,6 +245,9 @@ func _hurt(damage, multiplier):
 		if hp <= 0.0:
 			defeat()
 func defeat():
+	# Audio
+	AudioManager.play_sfx(bossSound)
+	
 	EventBus.emit_signal("boss_defeated")
 	state = States.IDLE
 	

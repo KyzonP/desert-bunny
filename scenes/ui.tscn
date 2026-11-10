@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://bti7l0s1loqws" path="res://fonts/PrStart.ttf" id="1_nt7q6"]
 [ext_resource type="Script" uid="uid://bnqnh36ofu47n" path="res://scripts/ui.gd" id="1_x4jx1"]
+[ext_resource type="Script" uid="uid://c3jtd80g71uus" path="res://scripts/bomb_flash.gd" id="2_41akx"]
 [ext_resource type="Texture2D" uid="uid://cybv1456fgsff" path="res://assets/art/ui/GuardianPortrait.png" id="3_gdt2y"]
 [ext_resource type="Texture2D" uid="uid://cfkvqvr5b8gpd" path="res://assets/art/ui/GroknackPortrait.png" id="3_wm3ai"]
 [ext_resource type="Texture2D" uid="uid://dkxmi0tvk634n" path="res://assets/art/ui/BunnyPortrait.png" id="3_yev5y"]
@@ -18,6 +19,11 @@
 [ext_resource type="Texture2D" uid="uid://d1n13ksnxfguo" path="res://assets/art/mobile/ButtonLeftPressed.png" id="15_cof4p"]
 [ext_resource type="Texture2D" uid="uid://cpmey7v1m8g2r" path="res://assets/art/mobile/ButtonRightPressed.png" id="16_f7tlh"]
 [ext_resource type="Script" uid="uid://jxpk21hv66cd" path="res://scripts/touch_shoot.gd" id="18_8k7j3"]
+[ext_resource type="Texture2D" uid="uid://otau7hetkov" path="res://assets/art/ui/Button.png" id="19_ycmcx"]
+[ext_resource type="Texture2D" uid="uid://smbb8cqrrgbq" path="res://assets/art/ui/ButtonPressed.png" id="20_kupmu"]
+[ext_resource type="Texture2D" uid="uid://bol1ohkmryojy" path="res://assets/art/ui/ButtonHover.png" id="21_catpy"]
+[ext_resource type="Texture2D" uid="uid://b64u5ky6t6hfc" path="res://assets/art/ui/PauseButton.png" id="22_kupmu"]
+[ext_resource type="Texture2D" uid="uid://bqs2e0vkytvp3" path="res://assets/art/ui/MuteButton.png" id="23_catpy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gdt2y"]
 animations = [{
@@ -77,6 +83,12 @@ border_color = Color(0.8, 0.8, 0.8, 0)
 script = ExtResource("1_x4jx1")
 dialogueAppearTime = 1.5
 dialogueVanishTime = 2.0
+
+[node name="BombFlash" type="ColorRect" parent="." unique_id=800371072]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("2_41akx")
 
 [node name="Portrait" type="AnimatedSprite2D" parent="." unique_id=391890990]
 texture_filter = 1
@@ -332,3 +344,46 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("1_nt7q6")
 bbcode_enabled = true
 text = "[center]FIRE"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1697647282]
+visible = false
+offset_top = 283.0
+offset_right = 1152.0
+offset_bottom = 647.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=222895069]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="QuitButton" type="TextureButton" parent="HBoxContainer/VBoxContainer" unique_id=1894230291]
+layout_mode = 2
+texture_normal = ExtResource("19_ycmcx")
+texture_pressed = ExtResource("20_kupmu")
+texture_hover = ExtResource("21_catpy")
+
+[node name="Text" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/QuitButton" unique_id=1533134454]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 500.0
+offset_bottom = 65.0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("1_nt7q6")
+bbcode_enabled = true
+text = "[center]QUIT"
+
+[node name="PauseButton" type="TextureButton" parent="." unique_id=919021665]
+texture_filter = 1
+offset_right = 18.0
+offset_bottom = 18.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("22_kupmu")
+
+[node name="MuteButton" type="TextureButton" parent="." unique_id=1305006696]
+texture_filter = 1
+offset_left = 1080.0
+offset_right = 1098.0
+offset_bottom = 18.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("23_catpy")

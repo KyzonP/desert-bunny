@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var scoreText = find_child("ScoreText")
 @onready var endText = find_child("EndText")
 @onready var deadText = find_child("DeadText")
+@onready var quitButton = find_child("HBoxContainer")
 
 @export var dialogueAppearTime : float = 2.0
 @export var dialogueVanishTime : float = 1.0
@@ -19,6 +20,8 @@ var speed_node
 
 var end : bool = false
 
+# Audio
+var buttonSound = preload("res://assets/audio/sfx/Blip.wav")
 
 func _ready():
 	EventBus.dialogue_trigger.connect(trigger_dialogue)
@@ -29,16 +32,17 @@ func _ready():
 	EventBus.end_game.connect(end_text)
 	EventBus.player_dead.connect(dead_text)
 	
+	find_child("QuitButton").pressed.connect(mainMenu)
+	find_child("PauseButton").pressed.connect(pauseButton)
+	find_child("MuteButton").pressed.connect(muteButton)
+	
 	dialogueText.visible_ratio = 0.0
 	
 	if not Global.check_not_mobile():
-		print("yeah")
 		$TouchJoystick.queue_free()
 		$TouchRoll.queue_free()
 		$TouchSpeed.queue_free()
 		$TouchShoot.queue_free()
-	else:
-		print("nah")
 	
 func _physics_process(_delta):
 	update_speed()
@@ -77,7 +81,6 @@ func end_dialogue():
 	dialogueText.visible_ratio = 0.0
 	
 func update_health(percentage):
-	print(percentage)
 	percentage = percentage * 100
 	if is_instance_valid(healthBar):
 		if healthTween:
@@ -103,6 +106,7 @@ func decrease_bomb(_pos, _radius):
 func dead_text():
 	endText.visible = true
 	deadText.visible = true
+	quitButton.visible = true
 	
 	SaveLoad.save_game()
 	
@@ -117,11 +121,28 @@ func end_text(score):
 	
 	scoreText.visible = true
 	endText.visible = true
+	quitButton.visible = true
 	
 	SaveLoad.save_game()
 	
 	end = true
 	
 func mainMenu():
+	# Audio
+	AudioManager.play_sfx(buttonSound)
+	
 	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
+	
+func pauseButton():
+	# Audio
+	AudioManager.play_sfx(buttonSound)
+	
+	EventBus.togglePause.emit()
+	
+func muteButton():
+	# Audio
+	AudioManager.play_sfx(buttonSound)
+	
+	EventBus.toggleMute.emit()
+
 	

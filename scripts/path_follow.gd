@@ -28,7 +28,7 @@ func _physics_process(delta):
 			speed = move_toward(speed, minSpeed, delta * deceleration)
 		else:
 			speed = move_toward(speed, baseSpeed, delta * deceleration)
-
+			
 		progress += delta * speed
 	elif not stopped and mobile:
 		if mobileSpeed == 1:

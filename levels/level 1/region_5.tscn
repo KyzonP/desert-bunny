@@ -39,10 +39,10 @@ data = PackedVector3Array(61.49226, 34, 13.17692, 0, 34, 0, 22.50774, 34, 18, 22
 script = ExtResource("1_emvkn")
 
 [node name="LeftFirePoint" type="Marker3D" parent="." unique_id=508918784]
-transform = Transform3D(1, 0, 0, -4.5e-44, 1, 0, 0, 0, 1, -20, 0.75, 72.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.75, 72.5)
 
 [node name="RightFirePoint" type="Marker3D" parent="." unique_id=178283874]
-transform = Transform3D(1, 0, 0, -4.5e-44, 1, 0, 0, 0, 1, -20, 0.75, -72.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0.75, -72.5)
 
 [node name="BossFightStart2" parent="." unique_id=1036386572 instance=ExtResource("2_niykl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 800, 80, 0)
@@ -87,7 +87,7 @@ enemyTimerMax = 1.0
 [node name="HitZones" type="Node3D" parent="Boss" unique_id=1550381393]
 
 [node name="LeftBarrel" type="CSGSphere3D" parent="Boss" unique_id=855782070]
-transform = Transform3D(1, 0, 0, -4.5e-44, 1, 0, 0, 0, 1, -21.565, 87.135, 35)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.565, 87.135, 35)
 visible = false
 radius = 2.0
 material = SubResource("StandardMaterial3D_a22uk")
@@ -100,7 +100,7 @@ height = 5.0
 material = SubResource("StandardMaterial3D_1oyf2")
 
 [node name="RightBarrel" type="CSGSphere3D" parent="Boss" unique_id=1139845083]
-transform = Transform3D(1, 0, 0, -4.5e-44, 1, 0, 0, 0, 1, -21.565, 87.135, -35)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.565, 87.135, -35)
 visible = false
 radius = 2.0
 material = SubResource("StandardMaterial3D_a22uk")

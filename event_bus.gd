@@ -62,3 +62,6 @@ signal removeBomb
 
 @warning_ignore("unused_signal")
 signal togglePause()
+
+@warning_ignore("unused_signal")
+signal toggleMute()

@@ -35,6 +35,7 @@ var mobile_y_direction : float = 0.0
 var hurtBufferTimer : float = 0.0
 @onready var explosion = $Explosion
 @onready var sparks = $Sparks
+var immune : bool = false # Turned on if the boss is defeated
 
 # Rolling
 var rollTweenMove
@@ -65,6 +66,11 @@ var bulletObject = load("res://scenes/bullet.tscn")
 @export var bomb_radius : float = 300.0
 @onready var bomb_current : int = bomb_max
 
+# Audio
+var bombSound = preload("res://assets/audio/sfx/Bomb.wav")
+var hurtSound = preload("res://assets/audio/sfx/Hit.wav")
+var shootSound = preload("res://assets/audio/sfx/Shoot.wav")
+
 func _ready():
 	area_entered.connect(_collide)
 	EventBus.powerup_activated.connect(_increase_volley_size)
@@ -74,6 +80,7 @@ func _ready():
 	EventBus.touchRoll.connect(roll)
 	EventBus.touchFire.connect(fireBullet)
 	EventBus.touchBomb.connect(trigger_bomb)
+	EventBus.boss_defeated.connect(toggle_immunity)
 
 func _input(_event):
 	if Input.is_action_just_pressed("roll_left"):
@@ -87,6 +94,8 @@ func _input(_event):
 		
 func trigger_bomb() -> void:
 	if bomb_current > 0:
+		AudioManager.play_sfx(bombSound)
+		
 		bomb_current -= 1
 		EventBus.bomb_activated.emit(global_position, bomb_radius)
 		
@@ -168,6 +177,9 @@ func lock_to_camera() -> void:
 func fireBullet() -> void:
 	if not rolling:
 		if bulletVolley < bulletVolleyMax:
+			# Audio
+			AudioManager.play_sfx(shootSound)
+			
 			bulletVolley += 1
 			var bullet = bulletObject.instantiate()
 			get_tree().root.get_child(3).add_child(bullet)
@@ -220,7 +232,10 @@ func _collide(area) -> void:
 		hurt(1)
 
 func hurt(damage):
-	if hurtBufferTimer >= hurtBufferMax:
+	if hurtBufferTimer >= hurtBufferMax and not immune:
+		# Audio
+		AudioManager.play_sfx(hurtSound)
+		
 		hurtBufferTimer = 0.0
 		EventBus.player_hurt.emit(damage)
 		sparks.explode(false)
@@ -230,3 +245,6 @@ func _increase_volley_size() -> void:
 	
 func die():
 	explosion.explode()
+	
+func toggle_immunity():
+	immune = true

@@ -27,6 +27,9 @@ signal defeated(enemy_node)
 # Bullets
 var bulletObject = load("res://scenes/bullet.tscn")
 
+# Audio
+var deathSound = preload("res://assets/audio/sfx/Boom.wav")
+
 func _ready():
 	area_entered.connect(collide)
 	targeting.playerFound.connect(_enable_shooting)
@@ -74,6 +77,8 @@ func destroy():
 	queue_free()
 	
 func collide(_area):
+	# Audio
+	AudioManager.play_sfx(deathSound)
 	destroy()
 	
 func _set_target(player):
