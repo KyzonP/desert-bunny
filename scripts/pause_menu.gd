@@ -25,4 +25,6 @@ func quit():
 	# Audio
 	AudioManager.play_sfx(buttonSound)
 	
+	toggle_pause()
+	
 	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")

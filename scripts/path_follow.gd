@@ -19,18 +19,33 @@ func _ready():
 	EventBus.player_dead.connect(_stop)
 	EventBus.speedDown.connect(mobile_speed_down)
 	EventBus.speedUp.connect(mobile_speed_up)
+	
+func _input(_event):
+	if Input.is_action_just_pressed("boost"):
+		mobile_speed_up()
+	if Input.is_action_just_pressed("brake"):
+		mobile_speed_down()
 
 func _physics_process(delta):
-	if not stopped and not mobile:
-		if Input.is_action_pressed("boost"):
-			speed = move_toward(speed, maxSpeed, delta * acceleration)
-		elif Input.is_action_pressed("brake"):
-			speed = move_toward(speed, minSpeed, delta * deceleration)
-		else:
-			speed = move_toward(speed, baseSpeed, delta * deceleration)
-			
-		progress += delta * speed
-	elif not stopped and mobile:
+	#if not stopped and not mobile:
+		#if Input.is_action_pressed("boost"):
+			#speed = move_toward(speed, maxSpeed, delta * acceleration)
+		#elif Input.is_action_pressed("brake"):
+			#speed = move_toward(speed, minSpeed, delta * deceleration)
+		#else:
+			#speed = move_toward(speed, baseSpeed, delta * deceleration)
+			#
+		#progress += delta * speed
+	#elif not stopped and mobile:
+		#if mobileSpeed == 1:
+			#speed = move_toward(speed, maxSpeed, delta * acceleration)
+		#elif mobileSpeed == 0:
+			#speed = move_toward(speed, baseSpeed, delta * deceleration)
+		#elif mobileSpeed == -1:
+			#speed = move_toward(speed, minSpeed, delta * deceleration)
+		#
+		#progress += delta * speed
+	if not stopped:
 		if mobileSpeed == 1:
 			speed = move_toward(speed, maxSpeed, delta * acceleration)
 		elif mobileSpeed == 0:
